@@ -28,3 +28,18 @@ def eliminate_duplicates(lista):
 z = eliminate_duplicates(lista=lista_ejer)
 print(z)
 
+
+def gender_to_numeric(x):
+    """Funcion que cuenta las filas masculinas o femeninas de un dataframe cuando esto viene indicado 
+    por las letras M y F"""
+    if x == 'M':
+        return 1
+    if x == 'F':
+        return 0
+
+
+def fix_century(x):
+    """ Funcion que corrige el año de una columna datatime en panda cuando el año de la fecha excede 
+    100 años al que deberia ser. El formato de esa columna es año/mes/dia"""
+  year = x.year - 100 if x.year > 1989 else x.year
+  return datetime.date(year, x.month, x.day)
