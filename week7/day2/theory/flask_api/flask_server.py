@@ -58,7 +58,7 @@ def main():
     # Load json from file 
     with open(settings_file, "r") as json_file_readed:
         json_readed = json.load(json_file_readed)
-    # He abierto el archivo settings_file en modo lectura y lo guardo en un diccionario que llam o json_readed
+    # He abierto el archivo settings_file en modo lectura y lo guardo en un diccionario que llamo json_readed
     # Load variables from jsons
     SERVER_RUNNING = json_readed["server_running"]
     
