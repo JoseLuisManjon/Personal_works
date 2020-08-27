@@ -29,10 +29,10 @@ def graf_grupo (x_val, y_val, hue_val, df, inv_y):
 
 def grafI_est (x_val, y_val, hue_val, df, inv_y): 
 
-    """ Crea un gráfico INTERACTIVO (de las tres estaciones de la Ciudad de Madrid) con el valor de una columna de datos en un gráfico de líneas
+    """ Crea un gráfico INTERACTIVO (de las tres estaciones de la Ciudad de Madrid) con el valor de una columna de datos en un gráfico de línea
         Guarda el gráfico (.html) en el directorio TOT_D"""
 
-    tit = y_val.replace("_"," ").title() + " por estación "
+    tit = y_val.replace("_"," ").title() + " en Madrid "
     fig = px.line(df, x=x_val, y=y_val, color=hue_val, line_group=hue_val, hover_name=hue_val,
         line_shape="spline", render_mode="svg")
     fig.update_layout(     
@@ -71,56 +71,22 @@ def graf_pais (ccode,col_dat, cname,cdf, y_maximo, adf):
     plt.show()
 
 
-def grafI_pais (ccode,col_dat, cname,cdf, y_maximo,adf):
+def grafI_temp_medias (frec,col_dat, cname,cdf):
 
     """ Crea un gráfico dinámico por cada columna de datos indicada (col_dat)
-        Muestra con líneas verticales las fechas del estado de alarma del país
         Guarda cada gráfico (html) en un directorio con el nombre del país indicado en ccode
     """
 
-    if y_maximo:
-        eje_y = cdf.total_cases.max()
-        tit =  " Covid19  Totals - " + cname.title()
-        filen= "Tot_"
-    else:
-        eje_y = cdf.rank_TCxM.max()
-        tit =  " COVID19  Ranking - " + cname.title()
-        filen= "Rank_"
-
-    fig = px.line(cdf, x="date", y=col_dat, line_shape="spline", render_mode="svg")
-
-    fig.add_annotation(x=adf.alarm_init[adf.iso_code==ccode].fillna("01-03-2020").values[0], y=eje_y, text="start alarm")
-       
-    fig.add_annotation(x=adf.alarm_end[adf.iso_code==ccode].fillna("31-12-2020").values[0], y=eje_y, text="end alarm")
-    fig.update_annotations(dict(xref="x", yref="y", showarrow=True, arrowhead=7, ax=-20, ay=20))
+    fig = px.line(cdf, x="fecha", y=col_dat, line_shape="spline", render_mode="svg")
 
     fig.update_layout(     
-            title = {"text" : tit, "x":0.4, "xanchor":"center"}, 
-            xaxis_title = "Date",
-            yaxis_title = "Totals",
+            title = {"text" : "Temperaturas medias"+ frec, "x":0.4, "xanchor":"center"}, 
+            xaxis_title = "Año",
+            yaxis_title = "Temperatura ºC",
             legend=dict(title= " ", y=0.5, font_size=12)
                     )
-    fig.add_shape(
-        dict(
-        type= "line",
-        x0 = adf.alarm_init[adf.iso_code==ccode].fillna("01-03-2020").values[0],
-        y0 = 0,
-        x1 = adf.alarm_init[adf.iso_code==ccode].fillna("01-03-2020").values[0],
-        y1 = eje_y, 
-        line  = dict (color = "Purple", width = 2, dash = "dot")
-        ))
-    fig.add_shape(
-        dict(
-        type= "line",
-        x0 = adf.alarm_end[adf.iso_code==ccode].fillna("31-12-2020").values[0],
-        y0 = 0,
-        x1 = adf.alarm_end[adf.iso_code==ccode].fillna("31-12-2020").values[0],
-        y1 = eje_y, 
-        line  = dict (color = "Purple", width = 2, dash = "dot")
-        ))
-
-    filen=filen+ ccode
-    dirn = "../resources/plots/"+ ccode+ "/"
+    filen=filen+ frec
+    dirn = "../resources/plots/"+ frec+ "/"
     ftb.salvarI_plot(fig, dirn, filen)
     fig.show()
 
