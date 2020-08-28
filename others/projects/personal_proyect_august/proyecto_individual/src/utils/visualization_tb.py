@@ -138,8 +138,7 @@ def graf_daily(n1,c1,n2,c2,ccode,df, cname,adf):
 
 def graf_dailyd(n2,c2,ccode,df, cname):
 
-    """ Crea un gráfico dinámico con la información de muertes diarias 
-        Muestra con líneas verticales las fechas en que las muertes crecen (rojo) o decrecen (verde)
+    """ Crea un gráfico dinámico con la información de precipitaciones anuales en mm 
         Guarda el gráfico (html) en un directorio con el nombre del país indicado en ccode
     """
 
@@ -296,8 +295,8 @@ def graf_outlD(datf, col):
         Guarda el gráfico (.png) en el directorio TOT_D """
 
     sns.set(style="ticks", palette="vlag")
-    sns.boxplot(x="location", y=col,
-                palette=["b", "r","g","m","orange"],
+    sns.boxplot(x="Año", y=col,
+                palette=["b", "r","g","m","orange","y"],
                 data=datf)
     file_name = col+ "_gD_box"
     ftb.salvar_plot("../resources/plots/TOT_D/", file_name)
