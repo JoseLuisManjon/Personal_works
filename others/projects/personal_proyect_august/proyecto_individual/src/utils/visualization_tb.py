@@ -343,24 +343,25 @@ def grafI_prog(df,xval,yval, tit,t):
         ftb.salvarI_plot(fig,"../resources/plots/TOT_D/", file_name)
     fig.show()
 
-def graf_corr (df, col, t):
+def graf_corr (df, col, f):
 
     """ Gráfico estático tipo mapa de calor (Heatmap) con las correlación entre las principales variables
-        Guarda el gráfico (.html) en el directorio TOT_W o TOT_D  según sea mundial o de grupo respectivamente  """ 
+        Guarda el gráfico (.html) en el directorio M_corr  según sea mundial o de grupo respectivamente
+        Los parametros que recibe son: df= nombre dataframe, col=color y f=frecuencia de los datos  """ 
 
     plt.subplots(figsize=(16, 12)) 
     corr = df.corr() 
     sns.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool),  cmap= col, square=True,  annot=True)
-    if t =="W":
-        plt.title ("COVID19 World - Heatmap")
-        file_name = t+"_heatmap" +  ".png"
-        ftb.salvar_plot ( "../resources/plots/TOT_W/", file_name)
-    elif t=="gD":
-        plt.title ("COVID19 Group D - Heatmap")
-        file_name = t + "_heatmap" +  ".png"
-        ftb.salvar_plot ( "../resources/plots/TOT_D/", file_name)
+    if f =="A":
+        plt.title ("Datos anuales - Heatmap")
+        file_name = f+"_heatmap" +  ".png"
+        ftb.salvar_plot ( "../resources/plots/M_corr", file_name)
+    elif f=="M":
+        plt.title ("Datos mensuales - Heatmap")
+        file_name = f + "_heatmap" +  ".png"
+        ftb.salvar_plot ( "../resources/plots/M_corr/", file_name)
     else:
-        plt.title (t+" COVID19 - Heatmap")
-        file_name = t+"_heatmap" +  ".png"
-        ftb.salvar_plot ( "../resources/plots/" + t + "/", file_name)
+        plt.title ("Datos diarios - Heatmap")
+        file_name = f+"_heatmap" +  ".png"
+        ftb.salvar_plot ( "../resources/plots/M_corr/", file_name)
     plt.show()
