@@ -346,8 +346,33 @@ def grafI_prog(df,xval,yval, tit,t):
 def graf_corr (df, col, f):
 
     """ Gráfico estático tipo mapa de calor (Heatmap) con las correlación entre las principales variables
-        Guarda el gráfico (.html) en el directorio M_corr  según sea mundial o de grupo respectivamente
+        Guarda el gráfico (.png) en el directorio M_corr  según sea mundial o de grupo respectivamente
         Los parametros que recibe son: df= nombre dataframe, col=color y f=frecuencia de los datos  """ 
+
+    plt.subplots(figsize=(16, 12)) 
+    corr = df.corr() 
+    sns.heatmap(corr, mask=np.zeros_like(corr, dtype=np.bool),  cmap= col, square=True,  annot=True)
+    if f =="A":
+        plt.title ("Datos anuales - Heatmap")
+        file_name = f+"_heatmap" +  ".png"
+        ftb.salvar_plot ( "../resources/plots/M_corr", file_name)
+    elif f=="M":
+        plt.title ("Datos mensuales - Heatmap")
+        file_name = f + "_heatmap" +  ".png"
+        ftb.salvar_plot ( "../resources/plots/M_corr/", file_name)
+    else:
+        plt.title ("Datos diarios - Heatmap")
+        file_name = f+"_heatmap" +  ".png"
+        ftb.salvar_plot ( "../resources/plots/M_corr/", file_name)
+    plt.show()
+
+def graf_hist (df, col, f):
+
+    """ Trazará histogramas para todas las características que están presentes en el conjunto de datos.
+        Guarda el gráfico (.htmlpng) en el directorio M_hist
+        Los parametros que recibe son: df= nombre dataframe, col=color y f=frecuencia de los datos  """ 
+
+    
 
     plt.subplots(figsize=(16, 12)) 
     corr = df.corr() 
