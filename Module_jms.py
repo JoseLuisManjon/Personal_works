@@ -43,3 +43,12 @@ def fix_century(x):
     100 años al que deberia ser. El formato de esa columna es año/mes/dia"""
   year = x.year - 100 if x.year > 1989 else x.year
   return datetime.date(year, x.month, x.day)
+
+
+  le = LabelEncoder()
+def encode_columna(columna, encoder):
+    """ Función que codifica columnas de un dataframe con valores string y los pasa a integers.
+        Se le pasa la columna y el LabelEncoder """
+    variety_encoded = encoder.fit_transform(columna)
+    variety_encoded = np.array(variety_encoded)
+    return variety_encoded
